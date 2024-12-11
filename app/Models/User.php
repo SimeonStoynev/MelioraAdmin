@@ -44,7 +44,16 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public static function getRolesWithPermissions(): array
+    {
+        return [
+            self::ROLE_SUPER_ADMIN => ['manage_ads', 'manage_ad_templates', 'read_dashboard', 'system_configurations'],
+            self::ROLE_ADMIN => ['manage_ads', 'manage_ad_templates', 'read_dashboard'],
+            self::ROLE_EDITOR => ['manage_ads', 'manage_ad_templates'],
+            self::ROLE_VIEWER => ['read_dashboard'],
+        ];
+    }
 }

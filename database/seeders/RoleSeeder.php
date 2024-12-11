@@ -14,25 +14,19 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $superAdmin = Role::create(['name' => User::ROLE_SUPER_ADMIN]);
-        $admin = Role::create(['name' => User::ROLE_ADMIN]);
-        $editor = Role::create(['name' => User::ROLE_EDITOR]);
-        $viewer = Role::create(['name' => User::ROLE_VIEWER]);
+        $permissions = collect(User::getRolesWithPermissions())->flatten()->unique();
 
-        $permissions = [
-            'manage_ads',
-            'manage_ad_templates',
-            'read_dashboard',
-            'system_configurations'
-        ];
-
-        foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+        // Create permissions
+        foreach ($permissions as $permissionName) {
+            Permission::firstOrCreate(['name' => $permissionName]);
         }
 
-        $superAdmin->givePermissionTo(Permission::all());
-        $admin->givePermissionTo(['manage_ads', 'manage_ad_templates', 'read_dashboard']);
-        $editor->givePermissionTo(['manage_ads', 'manage_ad_templates']);
-        $viewer->givePermissionTo(['read_dashboard']);
+        $rolesWithPermissions = User::getRolesWithPermissions();
+
+        // Create roles and assign permissions
+        foreach ($rolesWithPermissions as $roleName => $permissions) {
+            $role = Role::firstOrCreate(['name' => $roleName]);
+            $role->givePermissionTo($permissions);
+        }
     }
 }

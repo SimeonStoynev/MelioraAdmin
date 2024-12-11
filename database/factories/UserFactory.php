@@ -43,7 +43,7 @@ class UserFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (User $user) {
-            $roles = Role::whereIn('name', [User::ROLE_ADMIN, User::ROLE_EDITOR, User::ROLE_VIEWER])->get();
+            $roles = Role::whereIn('name', array_keys(User::getRolesWithPermissions()))->get();
 
             if ($roles->isNotEmpty()) {
                 $user->assignRole($roles->random(1));

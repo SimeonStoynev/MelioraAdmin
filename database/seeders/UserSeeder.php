@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             return;
         }
 
-        // Create the Super Admin
+        // Create Super Admin
         $superAdmin = User::create([
             'name' => 'Super Admin',
             'email' => 'super_admin@meliora.web',
