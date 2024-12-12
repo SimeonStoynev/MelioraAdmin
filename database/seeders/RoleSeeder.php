@@ -14,14 +14,14 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $permissions = collect(User::getRolesWithPermissions())->flatten()->unique();
+        $permissions = collect(config('seedersData.rolesWithPermissions'))->flatten()->unique();
 
         // Create permissions
         foreach ($permissions as $permissionName) {
             Permission::firstOrCreate(['name' => $permissionName]);
         }
 
-        $rolesWithPermissions = User::getRolesWithPermissions();
+        $rolesWithPermissions = config('seedersData.rolesWithPermissions');
 
         // Create roles and assign permissions
         foreach ($rolesWithPermissions as $roleName => $permissions) {

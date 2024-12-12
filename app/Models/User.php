@@ -41,22 +41,4 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
-
-    public const string ROLE_SUPER_ADMIN = 'Super Admin';
-
-    public const string ROLE_ADMIN = 'Admin';
-
-    public const string ROLE_EDITOR = 'Editor';
-
-    public const string ROLE_VIEWER = 'Viewer';
-
-    public static function getRolesWithPermissions(): array
-    {
-        return [
-            self::ROLE_SUPER_ADMIN => ['manage_ads', 'manage_ad_templates', 'read_dashboard', 'system_configurations'],
-            self::ROLE_ADMIN => ['manage_ads', 'manage_ad_templates', 'read_dashboard'],
-            self::ROLE_EDITOR => ['manage_ads', 'manage_ad_templates'],
-            self::ROLE_VIEWER => ['read_dashboard'],
-        ];
-    }
 }
