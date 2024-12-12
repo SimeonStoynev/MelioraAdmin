@@ -28,11 +28,44 @@ class UserSeeder extends Seeder
         $superAdmin = User::create([
             'name' => 'Super Admin',
             'email' => 'super_admin@meliora.web',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('pass123'),
         ]);
         $superAdminRole = $roles->where('name', 'Super Admin')->first();
         if ($superAdminRole) {
             $superAdmin->assignRole($superAdminRole);
+        }
+
+        // Create Admin
+        $admin = User::create([
+            'name' => 'Admin',
+            'email' => 'admin@meliora.web',
+            'password' => Hash::make('pass123'),
+        ]);
+        $adminRole = $roles->where('name', 'Admin')->first();
+        if ($adminRole) {
+            $admin->assignRole($adminRole);
+        }
+
+        // Create Editor
+        $editor = User::create([
+            'name' => 'Editor',
+            'email' => 'editor@meliora.web',
+            'password' => Hash::make('pass123'),
+        ]);
+        $editorRole = $roles->where('name', 'Editor')->first();
+        if ($editorRole) {
+            $editor->assignRole($editorRole);
+        }
+
+        // Create Viewer
+        $viewer = User::create([
+            'name' => 'Viewer',
+            'email' => 'viewer@meliora.web',
+            'password' => Hash::make('pass123'),
+        ]);
+        $viewerRole = $roles->where('name', 'Viewer')->first();
+        if ($viewerRole) {
+            $viewer->assignRole($viewerRole);
         }
 
         // Create users with a random role
