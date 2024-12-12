@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
 
         if ($roles->isEmpty()) {
             $this->command->error('No roles found in the database. Please run the RoleSeeder first.');
+
             return;
         }
 

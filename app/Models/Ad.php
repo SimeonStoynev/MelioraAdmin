@@ -12,7 +12,9 @@ class Ad extends Model
     use HasFactory, SoftDeletes;
 
     public const string STATUS_PENDING = 'pending';
+
     public const string STATUS_IN_PROGRESS = 'in-progress';
+
     public const string STATUS_COMPLETED = 'completed';
 
     protected $fillable = [

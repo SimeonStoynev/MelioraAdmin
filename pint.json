@@ -1,0 +1,10 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "no_superfluous_phpdoc_tags": false,
+        "phpdoc_separation": false,
+        "phpdoc_align": false,
+        "ordered_imports": false,
+        "no_extra_blank_lines": false
+    }
+}

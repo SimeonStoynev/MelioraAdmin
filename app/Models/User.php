@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -43,8 +43,11 @@ class User extends Authenticatable
     ];
 
     public const string ROLE_SUPER_ADMIN = 'Super Admin';
+
     public const string ROLE_ADMIN = 'Admin';
+
     public const string ROLE_EDITOR = 'Editor';
+
     public const string ROLE_VIEWER = 'Viewer';
 
     public static function getRolesWithPermissions(): array

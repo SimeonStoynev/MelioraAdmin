@@ -15,13 +15,13 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use App\Filament\Resources\RoleResource\Pages;
-use App\Filament\Resources\RoleResource\RelationManagers;
 
 class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-finger-print';
+
     protected static ?string $navigationGroup = 'System Settings';
 
     public static function form(Form $form): Form
@@ -36,7 +36,7 @@ class RoleResource extends Resource
                 Select::make('permissions')
                     ->multiple()
                     ->relationship('permissions', 'name')
-                    ->preload()
+                    ->preload(),
             ]);
     }
 

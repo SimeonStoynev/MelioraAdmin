@@ -19,13 +19,13 @@ use Filament\Resources\Pages\Page;
 use Filament\Notifications\Notification;
 use Filament\Forms\Components\DatePicker;
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
     protected static ?string $navigationGroup = 'System Settings';
 
     public static function form(Form $form): Form
@@ -79,7 +79,7 @@ class UserResource extends Resource
                                 $data['created_until'],
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
-                    })
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

@@ -21,7 +21,7 @@ class AdTemplateFactory extends Factory
         return [
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
-            'canva_url' => 'https://canva.com/' . $this->faker->word,
+            'canva_url' => 'https://canva.com/'.$this->faker->word,
             'status' => $this->faker->randomElement(['draft', 'active', 'archived']),
             'ad_id' => Ad::inRandomOrder()->first(),
             'created_at' => now(),

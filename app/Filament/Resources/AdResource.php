@@ -19,7 +19,6 @@ use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
 use Filament\Notifications\Notification;
 use App\Filament\Resources\AdResource\Pages;
-use App\Filament\Resources\AdResource\RelationManagers;
 
 class AdResource extends Resource
 {
@@ -97,7 +96,7 @@ class AdResource extends Resource
     public static function generateAdTemplate(Ad $ad): void
     {
         AdTemplate::create([
-            'title' => $ad->title . ' Template',
+            'title' => $ad->title.' Template',
             'ad_id' => $ad->id,
             'canva_url' => 'https://canva.com/example',
             'status' => AdTemplate::STATUS_DRAFT,

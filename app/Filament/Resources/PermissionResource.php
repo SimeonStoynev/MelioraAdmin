@@ -18,13 +18,13 @@ use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Forms\Components\DatePicker;
 use App\Filament\Resources\PermissionResource\Pages;
-use App\Filament\Resources\PermissionResource\RelationManagers;
 
 class PermissionResource extends Resource
 {
     protected static ?string $model = Permission::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-lock-open';
+
     protected static ?string $navigationGroup = 'System Settings';
 
     public static function form(Form $form): Form
@@ -35,7 +35,7 @@ class PermissionResource extends Resource
                     ->minLength(2)
                     ->maxLength(255)
                     ->required()
-                    ->unique()
+                    ->unique(),
             ]);
     }
 
@@ -65,7 +65,7 @@ class PermissionResource extends Resource
                                 $data['created_until'],
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
-                    })
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

@@ -12,7 +12,9 @@ class AdTemplate extends Model
     use HasFactory, SoftDeletes;
 
     public const string STATUS_DRAFT = 'draft';
+
     public const string STATUS_ACTIVE = 'active';
+
     public const string STATUS_ARCHIVED = 'archived';
 
     protected $fillable = [
@@ -20,7 +22,7 @@ class AdTemplate extends Model
         'description',
         'status',
         'canva_url',
-        'ad_id'
+        'ad_id',
     ];
 
     public static function getStatusLabels(): array

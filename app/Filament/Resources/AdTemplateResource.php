@@ -18,7 +18,6 @@ use Filament\Resources\Resource;
 use Filament\Notifications\Notification;
 use Filament\Forms\Components\DatePicker;
 use App\Filament\Resources\AdTemplateResource\Pages;
-use App\Filament\Resources\AdTemplateResource\RelationManagers;
 
 class AdTemplateResource extends Resource
 {
@@ -95,7 +94,7 @@ class AdTemplateResource extends Resource
                                 $data['created_until'],
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
-                    })
+                    }),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

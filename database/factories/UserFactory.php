@@ -29,7 +29,7 @@ class UserFactory extends Factory
 
         return [
             'name' => $name,
-            'email' => strtolower(implode('_', explode(' ', $name))) . '@meliora.web',
+            'email' => strtolower(implode('_', explode(' ', $name))).'@meliora.web',
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
