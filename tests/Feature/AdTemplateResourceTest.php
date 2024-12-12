@@ -26,9 +26,9 @@ class AdTemplateResourceTest extends TestCase
     {
         parent::setUp();
 
-        Permission::create(['name' => 'manage_ads', 'guard_name' => 'web']);
-        Permission::create(['name' => 'manage_ad_templates', 'guard_name' => 'web']);
-        Permission::create(['name' => 'system_configurations', 'guard_name' => 'web']);
+        Permission::firstOrCreate(['name' => 'manage_ads', 'guard_name' => 'web']);
+        Permission::firstOrCreate(['name' => 'manage_ad_templates', 'guard_name' => 'web']);
+        Permission::firstOrCreate(['name' => 'system_configurations', 'guard_name' => 'web']);
 
         $role = Role::create(['name' => 'Super Admin']);
         $role->givePermissionTo(['manage_ad_templates', 'manage_ads']);
