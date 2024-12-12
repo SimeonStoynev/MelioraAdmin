@@ -15,6 +15,7 @@ use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Notifications\Notification;
 use App\Filament\Resources\AdTemplateResource\Pages;
 use App\Filament\Resources\AdTemplateResource\RelationManagers;
 
@@ -36,16 +37,13 @@ class AdTemplateResource extends Resource
                 ->rules(['regex:/^https:\/\/(www\.)?canva\.com\//'])
                 ->required(),
             Forms\Components\Select::make('status')
-                ->options([
-                    'draft' => 'Draft',
-                    'active' => 'Active',
-                    'archived' => 'Archived',
-                ])
-                ->default('draft'),
+                ->options(AdTemplate::getStatusLabels())
+                ->default(AdTemplate::STATUS_DRAFT),
             Forms\Components\Select::make('ad_id')
                 ->relationship('ad', 'title')
                 ->required()
-                ->searchable(),
+                ->searchable()
+                ->preload(),
 
             Forms\Components\Section::make('Associated Ad')->visibleOn('view')->schema([
                 Forms\Components\Placeholder::make('ad_title')
@@ -83,7 +81,14 @@ class AdTemplateResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->successNotification(
+                        Notification::make()
+                            ->success()
+                            ->title('Ad template deleted')
+                            ->body('The ad template has been soft-deleted successfully.')
+                            ->seconds(5),
+                    ),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

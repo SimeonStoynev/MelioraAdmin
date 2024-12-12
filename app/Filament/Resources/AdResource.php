@@ -17,6 +17,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
+use Filament\Notifications\Notification;
 use App\Filament\Resources\AdResource\Pages;
 use App\Filament\Resources\AdResource\RelationManagers;
 
@@ -40,11 +41,7 @@ class AdResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Select::make('status')
                     ->required()
-                    ->options([
-                        'pending' => 'Pending',
-                        'in-progress' => 'In Progress',
-                        'completed' => 'Completed',
-                    ]),
+                    ->options(Ad::getStatusLabels()),
             ]);
     }
 
@@ -74,7 +71,14 @@ class AdResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->successNotification(
+                        Notification::make()
+                            ->success()
+                            ->title('Ad deleted')
+                            ->body('The ad has been soft-deleted successfully.')
+                            ->seconds(5),
+                    ),
                 Action::make('generateTemplate')
                     ->label('Generate Ad Template')
                     ->requiresConfirmation()
@@ -96,10 +100,10 @@ class AdResource extends Resource
             'title' => $ad->title . ' Template',
             'ad_id' => $ad->id,
             'canva_url' => 'https://canva.com/example',
-            'status' => 'draft',
+            'status' => AdTemplate::STATUS_DRAFT,
         ]);
 
-        $ad->update(['status' => 'completed']);
+        $ad->update(['status' => Ad::STATUS_COMPLETED]);
     }
 
     public static function getPages(): array
