@@ -12,11 +12,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
-    public const string ROLE_SUPER_ADMIN = 'Super Admin';
-    public const string ROLE_ADMIN = 'Admin';
-    public const string ROLE_EDITOR = 'Editor';
-    public const string ROLE_VIEWER = 'Viewer';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -46,6 +41,11 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public const string ROLE_SUPER_ADMIN = 'Super Admin';
+    public const string ROLE_ADMIN = 'Admin';
+    public const string ROLE_EDITOR = 'Editor';
+    public const string ROLE_VIEWER = 'Viewer';
 
     public static function getRolesWithPermissions(): array
     {

@@ -17,4 +17,9 @@ class EditAdTemplate extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function getSavedNotificationTitle(): ?string
+    {
+        return 'Ad Template updated successfully.';
+    }
 }

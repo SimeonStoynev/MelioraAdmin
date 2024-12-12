@@ -70,6 +70,8 @@ class AdTemplateResource extends Resource
     public static function table(Table $table): Table
     {
         return $table->columns([
+            Tables\Columns\TextColumn::make('id')
+                ->sortable(),
             Tables\Columns\TextColumn::make('title'),
             Tables\Columns\SelectColumn::make('status')
                 ->options(['draft' => 'Draft', 'active' => 'Active', 'archived' => 'Archived']),

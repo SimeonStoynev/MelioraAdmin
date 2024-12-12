@@ -19,4 +19,9 @@ class EditAd extends EditRecord
             Actions\RestoreAction::make(),
         ];
     }
+
+    protected function getSavedNotificationTitle(): ?string
+    {
+        return 'Ad updated successfully.';
+    }
 }
