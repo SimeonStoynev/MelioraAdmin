@@ -5,6 +5,9 @@ namespace App\Filament\Resources;
 // Models
 use Spatie\Permission\Models\Permission;
 
+// Illuminate
+use Illuminate\Database\Eloquent\Builder;
+
 // Filament
 use Filament\Tables;
 use Filament\Forms\Form;
@@ -13,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
+use Filament\Forms\Components\DatePicker;
 use App\Filament\Resources\PermissionResource\Pages;
 use App\Filament\Resources\PermissionResource\RelationManagers;
 
@@ -41,10 +45,27 @@ class PermissionResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->sortable(),
-                TextColumn::make('name')
+                TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
-                //
+                // Custom filter with date range
+                Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        DatePicker::make('created_from'),
+                        DatePicker::make('created_until'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

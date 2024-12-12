@@ -16,6 +16,7 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Notifications\Notification;
+use Filament\Forms\Components\DatePicker;
 use App\Filament\Resources\AdTemplateResource\Pages;
 use App\Filament\Resources\AdTemplateResource\RelationManagers;
 
@@ -77,7 +78,25 @@ class AdTemplateResource extends Resource
             Tables\Columns\TextColumn::make('canva_url')->label('Canva URL')->limit(30),
             Tables\Columns\TextColumn::make('created_at')->dateTime(),
         ])
-            ->filters([])
+            ->filters([
+                // Custom filter with date range
+                Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        DatePicker::make('created_from'),
+                        DatePicker::make('created_until'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
+            ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
