@@ -10,9 +10,16 @@ class ChurnRateWidget extends ChartWidget
 
     protected function getData(): array
     {
-        $churnedSubscribers = 250;
-        $activeSubscribers = 1000;
-        $newSubscribers = 300;
+        $churnedSubscribers = random_int(100, 150);
+        $activeSubscribers = random_int(1000, 1200);
+        $newSubscribers = random_int(150, 300);
+
+        $totalSubscribersAtStart = $churnedSubscribers + $activeSubscribers;
+
+        // Calculate churn rate
+        $churnRate = ($churnedSubscribers / $totalSubscribersAtStart) * 100;
+
+        self::$heading = self::$heading . ' - ' . round($churnRate, 2) . '%';
 
         return [
             'datasets' => [
@@ -33,6 +40,7 @@ class ChurnRateWidget extends ChartWidget
                 ],
             ],
             'labels' => ['Churned', 'Active', 'New'],
+            'churnRate' => $churnRate,
         ];
     }
 
