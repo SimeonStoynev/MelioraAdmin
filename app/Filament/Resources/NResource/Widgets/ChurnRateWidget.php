@@ -14,10 +14,8 @@ class ChurnRateWidget extends ChartWidget
         $activeSubscribers = random_int(1000, 1200);
         $newSubscribers = random_int(150, 300);
 
-        $totalSubscribersAtStart = $churnedSubscribers + $activeSubscribers;
-
         // Calculate churn rate
-        $churnRate = ($churnedSubscribers / $totalSubscribersAtStart) * 100;
+        $churnRate = ($churnedSubscribers / $activeSubscribers) * 100;
 
         self::$heading = self::$heading . ' - ' . round($churnRate, 2) . '%';
 
